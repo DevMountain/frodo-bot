@@ -7,13 +7,15 @@ const octokit = new Octokit({ auth: GH_TOKEN })
 
 //create issue in actual dm repo
 const createIssue = async (title, label, body) => {
-  octokit.request(`POST /repos/{owner}/{repo}/issues`, {
+  let {data: {html_url}} = await octokit.request(`POST /repos/{owner}/{repo}/issues`, {
       owner: `DevMountain`,
       repo: `frodo`,
       title, 
       body, 
       labels: [label]
     })
+
+  return html_url
 }
 
 //create issue in my test repo
